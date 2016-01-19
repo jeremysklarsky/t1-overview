@@ -184,7 +184,7 @@ load: function() {
 In these simple examples, the T1View does not need a `render()` function explicitly defined because the parent class defines it for us. In our Backbone views we _always_ override the default `render()` function.
 
 #### Serialize
-The T1View default `render()` function will be looking for a `serialize()` function in your view. In Backbone views, you typically need to define variables for your templates at the moment the template is either compiled or rendered to the DOM. `serialize()` is T1's way of handling this. A render function using Hogan might look like this:
+The T1View default `render()` function will be looking for a `serialize()` function in your view. In Backbone views, you typically need to define variables for your templates at the moment the template is either compiled or rendered to the DOM. `serialize()` is T1's way of handling this. A render function using Hogan might look like this
 ```javascript
 $(this.el).html(this.compiledTemplate.render({
   model: '{{model}}',
@@ -200,9 +200,10 @@ $(this.el).html(this.compiledTemplate.render({
 }));
 ```
 
-Using T1View, we need only to define 'serialize()' on our view to return an object containing all our of our defined variables, and T1View's render function will render our templates with values inserted.
+Using T1View, we need only to define `serialize()` on our view to return an object containing all our of our defined variables, and T1View's render function will render our templates with values inserted.
 
 Example:
+
 ```javascript
 serialize: function () {
   return {

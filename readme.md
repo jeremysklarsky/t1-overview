@@ -100,10 +100,7 @@ define(['libs/jquery/jquery'], function ($) {
 #### templates
 These are the HTML templates used by the shared libraries. If a T1 library uses HTML, like T1Menu for example, its HTML will most likely be found in this folder.
 
-#### modules
-See below :smile:
-
-### Modules
+#### Modules
 T1 Code is organized not around its views but around modules. One advantage is that the modules are perpendicular to each other - that is, it is not the main Backbone app or router's job to instantiate views. The router simply points to a module's path and the T1 uses the module's configs to instantiate views. The source code for how T1Module works can be found in `src/js/libs/T1/T1.Module.js`.
 
 When a route is accessed, T1 will look for a `main.js` file in the folder the router has told it to access. Let's look at a simple example: `reporting/segments/main.js`
@@ -141,7 +138,7 @@ T1View is a simple extension of Backbone's `View` object. A T1View can be used e
 
 In Segments, which uses vanilla Backbone, we would typically manually create a new instance of a view class and assign it to an element. Using T1Layout, we can simple create an instance of T1Layout and load.
 
-_For an example of how `T1Layout` is used, check out `reporting/campaigns/dataExport/createEdit/createEdit`. To see how it is used in conjunction with `T1TabLayoutV2`, check out `admin/views/tabs` and `reporting/views/tabs`. Or feel free to search for `T1Layout` in `src/js/modules` and see what you can find.
+_For an example of how `T1Layout` is used, check out `reporting/campaigns/dataExport/createEdit/createEdit`. To see how it is used in conjunction with `T1TabLayoutV2`, check out `admin/views/tabs` and `reporting/views/tabs`. Or feel free to search for `T1Layout` in `src/js/modules` and see what you can find._
 
 #### T1View Lifecycle
 A T1View's lifecycle is very similar to a Backbone View. When it is created, `initialize()` is called implicitly, as is `load()`. One advantage of T1View is `render()` returns a `$.Deferred` promise. The most common pattern is something along the lines of:

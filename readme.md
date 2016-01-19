@@ -314,7 +314,18 @@ define([
 });
 ```
 
-#### Step 4: That's it...
+#### Step 4: Sass / CSS
+1. If we're adding a new module, we may want to separate the CSS files for the new views from existing modules. In the main template for bulk create, we'll wrap the entire template in a div that contains, among others, the class `"bulk-create-wrapper"`. 
+
+2. Create `_segments_bulk_create.scss` file in the `src/sass` folder.
+
+3. In the new sass file just created, anything you want to apply to that template will go inside 
+```scss
+.bulk-create-wrapper {}
+```
+4. Include the new sass file in the application. In `src/sass/compass.scss` add the line `@import "segments-bulk-create";`. This tells the application to import the file you just created so its CSS will be loaded when the application compiles.
+
+#### Step 5: That's it...
 Now that our routing is set, our libraries are loaded, our is created and module is defined, and our view object is configured within the module, we can then move forward creating HTML templates and our view file (in this case, `bulkCreate.js`). Because T1 is just providing the framework and routing, the view file itself can either be an instance of `T1View` or (like in the rest of the segments module), a boilerplate Backbone view. Should you work in any other module besides segments, you will be required to work using T1Views and T1Layouts. 
 
 

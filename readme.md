@@ -287,3 +287,4 @@ Now that our routing is set, our libraries are loaded, our is created and module
 ### Tips and Tricks
 - To source a view responsible for a particular interaction, one of the easiest ways to is identify the element's CSS class or ID. Search globally for that class and you will return hits on either the HTML template file or some views itself. 
 - To find live instances / examples of T1 Component files, search by the aliased name of the library class as set in `main.js` (e.g. to find an example of T1.Menu, search for `T1Menu`.) For strand web components, searching by name should return some hits (e.g. 'mm-grid').
+- Use your developer tools to set break points (or use `debugger;` or `console.log()` in your code) to be able to step through and into functions, check variables at different times.

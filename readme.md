@@ -239,7 +239,7 @@ When creating eventHubEvents, there is a particular naming convention that devel
 
 If a particular file sends an event, then it would be `'myFile.functionWhereEventPublished: 'callbackFunction'`. If multiple files can send the same type of event, then a more descriptive action is described: `'select:dropdown': 'callBackFunction'`
 
-_IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a vanilla Backbone view, the receiver view must manually subscribe in order to listen for a published event (e.g. `T1.EventHub.subscribe('organization:select, filter:clear', function (orgId) { this.orgId = orgId; });)`_
+_IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a vanilla Backbone view, the receiver view must manually subscribe in order to listen for a published event (e.g. `T1.EventHub.subscribe('eventName':'callBack')`_
 
 #### Data Events
 In a traditional Backbone app, views can listen to change events on models through the `object.on({'change:property': callback})` pattern. In T1, `dataEvents` adds another jQuery events-like object to the view to handle these events.

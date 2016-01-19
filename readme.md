@@ -61,7 +61,7 @@ Many of the plug-ins are slowly being replaced by the Strand web components fram
 }
 
 ```
-The top level of the object `reports` corresponds to the route `COMPASS_BASE/#reports`, telling T1 that the to load up the reporting module and its default view type, which will look for tabs.js in that module. The `modes` are the nested routes below reports. In this case there are 2: `campaigns` and `segments`. In both cases, route objects are built designating where the module is found and its default view. Note that while the top level default view will be found in `reports/views`, the campaigns default view will be found in `reports/campaigns/views/`. What does `bindings` do? I'm not really sure.
+The top level of the object `reports` corresponds to the route `COMPASS_BASE/#reports`, telling T1 that the to load up the reporting module and its default view type, which will look for tabs.js in that module. The `modes` are the nested routes below reports (so we'll now have access to the URLs `COMPASS_BASE/#reports/segments` and `COMPASS_BASE/#reports/campaigns`). In this case there are 2: `campaigns` and `segments`. In both cases, route objects are built designating where the module is found and its default view. Note that while the top level default view will be found in `reports/views`, the campaigns default view will be found in `reports/campaigns/views/`. What does `bindings` do? I'm not really sure.
 
 Additional Settings:
 - `showLoader` sets whether a loader and spinner will display while the module is loading

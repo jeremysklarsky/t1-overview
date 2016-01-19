@@ -239,6 +239,19 @@ When creating eventHubEvents, there is a particular naming convention that devel
 
 If a particular file sends an event, then it would be `'myFile.functionWhereEventPublished: 'callbackFunction'`. If multiple files can send the same type of event, then a more descriptive action is described: `'select:dropdown': 'callBackFunction'`
 
+_IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a vanilla Backbone view, the receiver view must manually subscribe in order to listen for a published event (e.g. `T1.EventHub.subscribe('organization:select, filter:clear', function (orgId) { this.orgId = orgId; });)`_
+
+#### Data Events
+`dataEvents` work very similarly to the eventHubEvents, though they are used far less frequently. This object adds another type event that our views can listen to: changes on a view's assigned model or collection. Like `eventHubEvents`, `dataEvents: {}` can only be employed on a T1View. In this example, the view will listen for two events on its collection: a `reset` event, and when there is a change to the `status` property on the collection. Each listener then points to a callback.
+```javascript
+dataEvents: {
+  collection: {
+    'reset': 'reload',
+    'change:status': 'updateActive'
+  }
+}
+```
+
 ### Case study in adding a new view: Segments Bulk Create
 #### Step 1: Routing
 We want the route `COMPASS_BASE/#segments/bulkCreate` so we add the following to the `modes` object contained within `'segments'` found in `router.config.js`:

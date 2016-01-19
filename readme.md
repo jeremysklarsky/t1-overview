@@ -239,7 +239,6 @@ When creating eventHubEvents, there is a particular naming convention that devel
 
 If a particular file sends an event, then it would be `'myFile.functionWhereEventPublished: 'callbackFunction'`. If multiple files can send the same type of event, then a more descriptive action is described: `'select:dropdown': 'callBackFunction'`
 
-```
 ### Case study in adding a new view: Segments Bulk Create
 #### Step 1: Routing
 We want the route `COMPASS_BASE/#segments/bulkCreate` so we add the following to the `modes` object contained within `'segments'` found in `router.config.js`:

@@ -132,7 +132,6 @@ define([
 This file returns a new instance of the T1Module class. In its options, we designate the default view that will be loaded up (found in the same folder's `views` folder). The name corresponds to the folder's location - which is important for telling T1 where to find its folders. Finally, for each view we intend to use, an configs object must be instantiated in the `viewCfgs` object. This is typically an empty object (e.g. `'segments': {}`). In this case, the module is creating an instance of the `DataExportModel` and passing this to the view which can then be accessed by the `options` argument in the `initialize(options)` function of the view.
 
 ### T1View and T1Layout
-
 #### What's the difference?
 T1View is a simple extension of Backbone's `View` object. A T1View can be used either as a standalone view, or it can be used as a wrapper to manage a lot of views contained within it. This is where T1Layout comes into play. T1Layout is essentially a view-loadng wrapper. 
 
@@ -219,6 +218,26 @@ serialize: function () {
     'message': DataExportModel.getEmailMessage()
   };
 }
+
+### Additional T1 Features
+
+#### EventHub
+While a typical backbone event only has an `events: {}` object to listen to jQuery events on that particular view, T1 has a powerful feature to allow different views to communicate with each other. This is implemented using EventHub. It is used similarly to the jQuery `events` object in a Backbone view.
+
+The basic game of catch works like this. In the sending view, we dispatch the event by calling `T1.EventHub.publish('eventName'). In the receiving view, we set up the eventHub:
+
+```javascript
+eventhubEvents: {
+  'eventName': 'callBackFunction'
+}
+```
+
+When the sender view publishes the `eventHubEvent`, the receiver view fires off the callback function. Like the jQuery events object, functions can also be defined in line, and arguments passed in when the event is published are sent implicitly to the callback functions without needing to be passed in on the receiving end of the eventHubEvents object.
+
+When creating eventHubEvents, there is a particular naming convention that developers try to keep to. While functionally these don't matter, they are useful to help locating where an event is coming from.
+
+If a particular file sends an event, then it would be `'myFile.functionWhereEventPublished: 'callbackFunction'`. If multiple files can send the same type of event, then a more descriptive action is described: `'select:dropdown': 'callBackFunction'`
+
 ```
 ### Case study in adding a new view: Segments Bulk Create
 #### Step 1: Routing

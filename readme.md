@@ -225,7 +225,7 @@ serialize: function () {
 #### EventHub
 While a typical backbone event only has an `events: {}` object to listen to jQuery events on that particular view, T1 has a powerful feature to allow different views to communicate with each other. This is implemented using EventHub. It is used similarly to the jQuery `events` object in a Backbone view.
 
-The basic game of catch works like this. In the sending view, we dispatch the event by calling `T1.EventHub.publish('eventName'). In the receiving view, we set up the eventHub:
+The basic game of catch works like this. In the sending view, we dispatch the event by calling `T1.EventHub.publish('eventName').` In the receiving view, we set up the eventHub:
 
 ```javascript
 eventhubEvents: {

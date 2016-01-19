@@ -244,7 +244,7 @@ _IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a
 #### Data Events
 In a traditional Backbone app, views can listen to change events on models through the `object.on({'change:property': callback})` pattern. In T1, `dataEvents` adds another jQuery events-like object to the view to handle these events.
 
-`dataEvents` work very similarly to the eventHubEvents, though they are used far less frequently. This object adds another type event that our views can listen to: changes on a view's assigned model or collection. Like `eventHubEvents`, `dataEvents: {}` can only be employed on a T1View. In this example, the view will listen for two events on its collection: a `reset` event, and when there is a change to the `status` property on the collection. Each listener then points to a callback.
+`dataEvents` work very similarly to the eventHubEvents, though they are used far less frequently.  Like `eventHubEvents`, `dataEvents: {}` can only be employed on a T1View. In this example, the view will listen for two events on its collection: a `reset` event, and when there is a change to the `status` property on the collection. Each listener then points to a callback.
 ```javascript
 dataEvents: {
   collection: {

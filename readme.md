@@ -141,6 +141,8 @@ T1View is a simple extension of Backbone's `View` object. A T1View can be used e
 
 In Segments, which uses vanilla Backbone, we would typically manually create a new instance of a view class and assign it to an element. Using T1Layout, we can simple create an instance of T1Layout and load.
 
+_For an example of how `T1Layout` is used, check out `reporting/campaigns/dataExport/createEdit/createEdit`. To see how it is used in conjunction with `T1TabLayoutV2`, check out `admin/views/tabs` and `reporting/views/tabs`. Or feel free to search for `T1Layout` in `src/js/modules` and see what you can find.
+
 #### T1View Lifecycle
 A T1View's lifecycle is very similar to a Backbone View. When it is created, `initialize()` is called implicitly, as is `load()`. One advantage of T1View is `render()` returns a `$.Deferred` promise. The most common pattern is something along the lines of:
 
@@ -153,6 +155,7 @@ load: function() {
 ```
 
 This is especially useful when using Layouts. That pattern would look something like this:
+
 1. In initialize, load up the layouts.
 2. In load, render that view's template, which should be prepopulated with elements for each of the layouts.
 3. After render, load the layouts.
@@ -220,4 +223,70 @@ serialize: function () {
   };
 }
 ```
+### Case study in adding a new view: Segments Bulk Create
+#### Step 1: Routing
+We want the route `COMPASS_BASE/#segments/bulkCreate` so we add the following to the `modes` object contained within `'segments'` found in `router.config.js`:
+```javascript
+'bulkCreate': [
+  {
+    'module': 'segments/bulkCreate',
+    'viewType': 'bulkCreate',
+    'showLoader': true
+  }
+]
+```
+### Step 2: Adding Libraries
+Since we'll be using the XLSX and JSZip libraries, we need to add them to `src/js/libs`. Then we must add their paths to `src/js/main.js` so that they can be easily required in our view files and models. Since `xlsx.js` is not designed for AMD (Asynchronous module definition), we have to do some additional configurations so that it will load properly with RequireJS.
 
+We add the following to the that `paths` object:
+```javascript
+  shim: 'libs/js-xlsx/shim',
+  JSZip: 'libs/jszip/jszip',
+  xlsx: 'libs/js-xlsx/xlsx',
+```
+And the following to the `shim` object:
+```javascript
+xlsx: {
+  deps: ['JSZip'],
+  exports: 'XLSX'
+},
+```
+This tells our application that `xlsx.js` is dependant on JSZip, and to manually export the defined `XLSX` variable from the module. Fortunately, most of the libraries in T1 have been built for AMD do not require this manual configuration.
+
+#### Step 3: Creating a module
+Since we're creating a brand new section of the segments module, we'll create a new module. Were we adding a new view to an existing page, this would not be necessary. Within the `src/js/modules/segments`, we'll add the new folder `bulkCreate`. At minimum that folder will need 3 things:
+- A `views` folder containing the default view designated in the routing object property `viewType`: `bulkSegments.js`.
+- A `templates` folder which will contain our HTML templates.
+- A `main.js` file that will serve as the `T1Module` instance governing the module's configurations. Whenever we introduce a new module, it must have a `main.js` T1Module because that is what the T1 Framework will be looking for in order to navigate the folder and serve up the views to Backbone. Our module is very simple, containing, for now just the one view. So our module will look like this:
+
+```javascript
+define([
+  'jQuery',
+  'T1',
+  'T1Module'
+], function ($, T1, T1Module) {
+  'use strict';
+
+  var instance;
+
+  if (instance === undefined) {
+    instance = new T1Module({
+      name: 'segments/bulkCreate',
+      viewCfgs: {
+        'bulkCreate': {}
+      },
+      defaultView: 'bulkCreate'
+    });
+  }
+
+  return instance;
+});
+```
+
+#### Step 4: That's it...
+Now that our routing is set, our libraries are loaded, our is created and module is defined, and our view object is configured within the module, we can then moe forward creating HTML templates and our view file (in this case, `bulkCreate.js`). Because T1 is just providing the framework and routing, the view file itself can either be an instance of `T1View` or (like in the rest of the segments module), a boilerplate Backbone view. Should you work in any other module besides segments, you will be required to work using T1Views and T1Layouts. 
+
+
+### Tips and Tricks
+- To source a view responsible for a particular interaction, one of the easiest ways to is identify the element's CSS class or ID. Search globally for that class and you will return hits on either the HTML template file or some views itself. 
+- To find live instances / examples of T1 Component files, search by the aliased name of the library class as set in `main.js` (e.g. to find an example of T1.Menu, search for `T1Menu`.) For strand web components, searching by name should return some hits (e.g. 'mm-grid').

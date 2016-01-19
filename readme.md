@@ -323,6 +323,7 @@ define([
 ```scss
 .bulk-create-wrapper {}
 ```
+
 - Include the new sass file in the application. In `src/sass/compass.scss` add the line `@import "segments-bulk-create";`. This tells the application to import the file you just created so its CSS will be loaded when the application compiles.
 
 #### Step 5: That's it...

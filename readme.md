@@ -264,7 +264,7 @@ We want the route `COMPASS_BASE/#segments/bulkCreate` so we add the following to
   }
 ]
 ```
-### Step 2: Adding Libraries
+#### Step 2: Adding Libraries
 Since we'll be using the XLSX and JSZip libraries, we need to add them to `src/js/libs`. Then we must add their paths to `src/js/main.js` so that they can be easily required in our view files and models. Since `xlsx.js` is not designed for AMD (Asynchronous module definition), we have to do some additional configurations so that it will load properly with RequireJS.
 
 We add the following to the that `paths` object:

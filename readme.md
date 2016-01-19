@@ -218,6 +218,7 @@ serialize: function () {
     'message': DataExportModel.getEmailMessage()
   };
 }
+```
 
 ### Additional T1 Features
 
@@ -300,7 +301,7 @@ define([
 ```
 
 #### Step 4: That's it...
-Now that our routing is set, our libraries are loaded, our is created and module is defined, and our view object is configured within the module, we can then moe forward creating HTML templates and our view file (in this case, `bulkCreate.js`). Because T1 is just providing the framework and routing, the view file itself can either be an instance of `T1View` or (like in the rest of the segments module), a boilerplate Backbone view. Should you work in any other module besides segments, you will be required to work using T1Views and T1Layouts. 
+Now that our routing is set, our libraries are loaded, our is created and module is defined, and our view object is configured within the module, we can then move forward creating HTML templates and our view file (in this case, `bulkCreate.js`). Because T1 is just providing the framework and routing, the view file itself can either be an instance of `T1View` or (like in the rest of the segments module), a boilerplate Backbone view. Should you work in any other module besides segments, you will be required to work using T1Views and T1Layouts. 
 
 
 ### Tips and Tricks

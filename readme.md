@@ -4,7 +4,7 @@
 The goal of this document is not to be exhaustive documentation, but to give a high level overview of the framework, libraries, and general best practices. It will focus on routing, views, and the T1 Library functions.
 
 #### Table of Contents
-1. [What Is T1?] (#what-is-t1?)
+1. [What Is T1?] (#what-is-t1)
 2. Compass Architecture
 3. `src`
   - Important Files Worth Noting

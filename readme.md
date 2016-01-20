@@ -3,6 +3,32 @@
 #### Purposes
 The goal of this document is not to be exhaustive documentation, but to give a high level overview of the framework, libraries, and general best practices. It will focus on routing, views, and the T1 Library functions.
 
+#### Table of Contents
+1. [What Is T1?] (#what-is-t1?)
+2. Compass Architecture
+3. `src`
+  - Important Files Worth Noting
+  - Relevant Folders Overview
+4. The Backbone Application
+  - models and collections
+  - libs
+  - templates
+  - modules
+5. T1View and T1Layout
+  - Differences
+  - T1View Lifecycle
+  - Serialize
+6. Additional T1 Features
+  - EventHub
+  - Data Events
+7. Case Study in adding a new view:
+  - Routing
+  - Adding Libraries
+  - Creating a module
+  - SCSS
+  - Summary
+8. Tips and Tricks
+
 ### What is T1?
 'T1' is a broadly used term to describe the entire Compass codebase. Specifically, it is a set of Javascript library files that are either: 
 - extensions of core Backbone files (e.g. View, Model, Collection) 
@@ -100,7 +126,7 @@ define(['libs/jquery/jquery'], function ($) {
 #### templates
 These are the HTML templates used by the shared libraries. If a T1 library uses HTML, like T1Menu for example, its HTML will most likely be found in this folder.
 
-#### Modules
+#### modules
 T1 Code is organized not around its views but around modules. One advantage is that the modules are perpendicular to each other - that is, it is not the main Backbone app or router's job to instantiate views. The router simply points to a module's path and the T1 uses the module's configs to instantiate views. The source code for how T1Module works can be found in `src/js/libs/T1/T1.Module.js`.
 
 When a route is accessed, T1 will look for a `main.js` file in the folder the router has told it to access. Let's look at a simple example: `reporting/segments/main.js`

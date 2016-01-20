@@ -5,29 +5,29 @@ The goal of this document is not to be exhaustive documentation, but to give a h
 
 #### Table of Contents
 1. [What Is T1?] (#what-is-t1)
-2. Compass Architecture
-3. `src`
-  - Important Files Worth Noting
-  - Relevant Folders Overview
-4. The Backbone Application
-  - models and collections
-  - libs
-  - templates
-  - modules
-5. T1View and T1Layout
-  - Differences
-  - T1View Lifecycle
-  - Serialize
-6. Additional T1 Features
-  - EventHub
-  - Data Events
-7. Case Study in adding a new view:
-  - Routing
-  - Adding Libraries
-  - Creating a module
-  - SCSS
-  - Summary
-8. Tips and Tricks
+2. [Compass Architecture] (#compass-architecture)
+3. [`src`] (#src)
+  - [Important Files Worth Noting] (#important-files-worth-noting)
+  - [Relevant Folders Overview] (#revelant-folders-overview)
+4. [The Backbone Application] (#the-backbone-application--making-sense-of-src)
+  - [models and collections] (#models-and-collections)
+  - [libs] (#libs)
+  - [templates] (#templates)
+  - [modules] (#modules)
+5. [T1View and T1Layout] (#t1view-and-t1layout)
+  - [Differences] (#whats-the-difference)
+  - [T1View Lifecycle] (#t1view-lifecycle)
+  - [Serialize] (#serialize)
+6. [Additional T1 Features] (#additional-t1-features)
+  - [EventHub] (#eventhub)
+  - [Data Events] (#data-events)
+7. [Case Study in adding a new view] (#case-study-in-adding-a-new-view-segments-bulk-create)
+  - [Routing] (#step-1-routing)
+  - [Adding Libraries] (#step-2-adding-libraries)
+  - [Creating a module] (#step-3-creating-a-module)
+  - [SCSS] (#step-4-sass--css)
+  - [Summary] (#step-5-thats-it)
+8. [Tips and Tricks] (#tips-and-tricks)
 
 ### What is T1?
 'T1' is a broadly used term to describe the entire Compass codebase. Specifically, it is a set of Javascript library files that are either: 

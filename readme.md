@@ -18,16 +18,18 @@ The goal of this document is not to be exhaustive documentation, but to give a h
   - [Differences] (#whats-the-difference)
   - [T1View Lifecycle] (#t1view-lifecycle)
   - [Serialize] (#serialize)
+  - [Templating] (#templating)
 6. [Additional T1 Features] (#additional-t1-features)
   - [EventHub] (#eventhub)
   - [Data Events] (#data-events)
-7. [Case Study in adding a new view] (#case-study-in-adding-a-new-view-segments-bulk-create)
+7. [Feature Flags] (#feature-flags)
+8. [Case Study in adding a new view] (#case-study-in-adding-a-new-view-segments-bulk-create)
   - [Routing] (#step-1-routing)
   - [Adding Libraries] (#step-2-adding-libraries)
   - [Creating a module] (#step-3-creating-a-module)
   - [SCSS] (#step-4-sass--css)
   - [Summary] (#step-5-thats-it)
-8. [Tips and Tricks] (#tips-and-tricks)
+9. [Tips and Tricks] (#tips-and-tricks)
 
 ### What is T1?
 'T1' is a broadly used term to describe the entire Compass codebase. Specifically, it is a set of Javascript library files that are either: 
@@ -246,6 +248,30 @@ serialize: function () {
   };
 }
 ```
+#### Templating
+By default, `T1View` uses [Mustache] (https://mustache.github.io/). You only need a few simple pieces to get started:
+
+- Interpolating literal values:
+``` html
+<mm-button type="secondary" id="browse-bulk-segments" unresolved>
+  <label>{{label}}</label>
+</mm-button>
+```
+
+- If / else (i.e. if `create === true`)
+``` html
+{{#create}}
+  <mm-button type="secondary" id="save" unresolved>
+    <label>Save</label>
+  </mm-button>
+{{/create}}
+
+{{^create}}
+  <mm-button type="secondary" id="save" unresolved>
+    <label>Save</label>
+  </mm-button>
+{{/create}}
+```
 
 ### Additional T1 Features
 
@@ -280,6 +306,28 @@ dataEvents: {
   }
 }
 ```
+
+### Feature Flags
+Occasionally, product and/or engineering has a need to restrict access to various sections or features of T1. The feature may be in Beta, or there may be a need to treat users differently based on their permissions and access. There are two different types of permissions to be aware of:
+1. Permissions
+`COMPASS_BASE/api/v2.0/users/{user_id}/permissions`
+This returns the permissions that are set on the user. These are high level permissions generally organized around the type of user (ADMIN, REPORTER, MANAGER)
+
+2. Settings
+`COMPASS_BASE/api/v2.0/users/{user_id}/settings`
+This is used to persist a User's preferences (housed in the `UserPreferences`) model, but it is also where feature flag data is stored.
+
+In most cases, a feature flag can be checked directly against the name of the flag by requiring the `T1.Permissions` module and using the `check` function: `T1Permissions.check('feature', 'name_of_flag'))`. This will return a true / false value that can be used in view logic.
+
+If you need a flag based on a _permission_ that has to be gotten slightly differently. Since these will be stored on the `User` itself, the permission will be stored as an atrribute. So if we wanted to check a User's role, for example:
+
+```javascript
+var user = User.getUser();
+var role = user.get('role')
+```
+
+`T1.Permissions` wraps a lot of this into functions that can then be by calling the same function. This module also allows UI developers to bypass the permissions by looking to the `env_local.js` files as a way of streamlining permissions in the local environment. Stay tuned as this may be changing.
+
 
 ### Case study in adding a new view: Segments Bulk Create
 #### Step 1: Routing
@@ -355,7 +403,6 @@ define([
 
 #### Step 5: That's it...
 Now that our routing is set, our libraries are loaded, our is created and module is defined, and our view object is configured within the module, we can then move forward creating HTML templates and our view file (in this case, `bulkCreate.js`). Because T1 is just providing the framework and routing, the view file itself can either be an instance of `T1View` or (like in the rest of the segments module), a boilerplate Backbone view. Should you work in any other module besides segments, you will be required to work using T1Views and T1Layouts. 
-
 
 ### Tips and Tricks
 - To source a view responsible for a particular interaction, one of the easiest ways to is identify the element's CSS class or ID. Search globally for that class and you will return hits on either the HTML template file or some views itself. 

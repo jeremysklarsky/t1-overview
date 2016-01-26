@@ -301,6 +301,8 @@ When creating eventHubEvents, there is a particular naming convention that devel
 
 If a particular file sends an event, then it would be `'myFile.functionWhereEventPublished: 'callbackFunction'`. If multiple files can send the same type of event, then a more descriptive action is described: `'select:dropdown': 'callBackFunction'`
 
+Finally, if you are overriding the default T1View `unload` function (or are using regular Backbone views), it is strongly recommended that in your view's `unload` you manually unsubscribe from any EventHub events to which your view is subscribed.
+
 _IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a vanilla Backbone view, the receiver view must manually subscribe in order to listen for a published event (e.g. `T1.EventHub.subscribe('eventName':'callBack')`_
 
 #### Data Events

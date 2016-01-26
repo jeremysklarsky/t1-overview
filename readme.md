@@ -30,6 +30,7 @@ The goal of this document is not to be exhaustive documentation, but to give a h
   - [SCSS] (#step-4-sass--css)
   - [Summary] (#step-5-thats-it)
 9. [Tips and Tricks] (#tips-and-tricks)
+10. [Notes for DMP Users] (#notes-for-dmp-users)
 
 ### What is T1?
 'T1' is a broadly used term to describe the entire Compass codebase. Specifically, it is a set of Javascript library files that are either: 
@@ -285,6 +286,8 @@ Interpolated data is sent to the template when `render` calls the `serialize` me
 #### EventHub
 While a typical backbone event only has an `events: {}` object to listen to jQuery events on that particular view, T1 has a powerful feature to allow different views to communicate with each other. This is implemented using EventHub. It is used similarly to the jQuery `events` object in a Backbone view.
 
+The `EventHub` is, essentially, a wrapper for (jQuery pub/sub) [https://api.jquery.com/jQuery.Callbacks/]. It makes public three functions: `publish`, `subscribe`, and `unsubscribe`.
+
 The basic game of catch works like this. In the sending view, we dispatch the event by calling `T1.EventHub.publish('eventName')`. In the receiving view, we set up the eventHub:
 
 ```javascript
@@ -417,3 +420,11 @@ Now that our routing is set, our libraries are loaded, our is created and module
 - Use your developer tools to set break points (or use `debugger;` or `console.log()` in your code) to be able to step through and into functions, check variables at different times.
 - When possible, keep your code changes contained to the modules and views in which you are working. Changes to core T1 files and functions should be done with extreme prejudice and only when absolutely necessary. Dozens of files are potentially dependent on these files. Potentially breaking changes could be introduced that would be very difficult to identify and test. It may become necessary to do at some point, but especially when new to the codebase it is advised to check in with other developers if you find yourself in a T1 library file when implementing a fix.
 - Use a [delinter] (https://github.com/MediaMath/compass/blob/develop/docs/code-style-checking.md) and follow the [Compass Style Guide] (https://github.com/MediaMath/compass/wiki/Compass-JavaScript-Style-Guide). 
+
+### Notes for DMP Users
+There are a few key differences to be aware of as a DMP developer.
+- Follow the instructions in the Compass main repo to make sure your hosts file is edited to point dmp.compass.dev to the proper port. To see your local version of compass, direct your browser to `dmp.compass.dev` instead of just `compass.dev`. In addition, the API endpoints will be governed by what is in `dmp.conf` instead of `compass.conf`. 
+- DMP / Segments module does _not_ use T1View or T1Layout. You must still adhere to the module folder system and setup modules properly. T1Models and T1Collections can still integrate into these views, but note that these are regular Backbone views.
+- As is noted throughout this document but summarized here, there are a few important pieces to note: 
+  - While you can still publish EventHub events, your view will not recognize the EventHub object, so you must subscribe manually to EventHub events in order to listen for them on your views.
+  - Since these are not T1Views, follow the normal procedure for creating Backbone views. Segments is currently using Hogan, a variant of Mustache, that can be used in rendering templates.

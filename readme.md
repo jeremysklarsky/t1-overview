@@ -248,12 +248,11 @@ serialize: function () {
     'message': DataExportModel.getEmailMessage()
   };
 }
-
+```
 If you do _not_ include a `serialize` function on your view, T1View will send call `toJSON` on your view's model (assuming it has one) and send all those attributes as variables to your template. If you do write a `serialize` method, however, this will be overwritten and you would be responsible to include _all_ variables you want in your `serialize` method.
 
 If you are working in a non T1View (e.g. the entire segments module), you templating and rendering must take place manually. At present, segments uses [Hogan] (http://twitter.github.io/hogan.js/), a variation of Mustache for rendering templates.
 
-```
 #### Templating
 By default, `T1View` uses [Mustache] (https://mustache.github.io/). You only need a few simple pieces to get started:
 

@@ -90,6 +90,7 @@ Many of the plug-ins are slowly being replaced by the Strand web components fram
 
 ```
 The top level of the object `reports` corresponds to the route `COMPASS_BASE/#reports`, telling T1 that the to load up the reporting module and its default view type, which will look for tabs.js in that module. The `modes` are the nested routes below reports (so we'll now have access to the URLs `COMPASS_BASE/#reports/segments` and `COMPASS_BASE/#reports/campaigns`). In this case there are 2: `campaigns` and `segments`. In both cases, route objects are built designating where the module is found and its default view. Note that while the top level default view will be found in `reports/views`, the campaigns default view will be found in `reports/campaigns/views/`. What does `bindings` do? I'm not really sure.
+*heh - I think I knew at one time*
 
 Additional Settings:
 - `showLoader` sets whether a loader and spinner will display while the module is loading
@@ -301,6 +302,9 @@ If a particular file sends an event, then it would be `'myFile.functionWhereEven
 
 _IMPORTANT! `eventHubEvents: {}` can only be used in T1Views. If you are using a vanilla Backbone view, the receiver view must manually subscribe in order to listen for a published event (e.g. `T1.EventHub.subscribe('eventName':'callBack')`_
 
+*Other important notes about eventhub:*  event hub events **must** be unregistered when views are unloaded or they'll be called from other pages.
+Eventhub embeds a pub sub library, wrapping it for no good reason really:  [https://github.com/cowboy/jquery-tiny-pubsub]*
+
 #### Data Events
 In a traditional Backbone app, views can listen to change events on models through the `object.on({'change:property': callback})` pattern. In T1, `dataEvents` adds another jQuery events-like object to the view to handle these events.
 
@@ -417,3 +421,6 @@ Now that our routing is set, our libraries are loaded, our is created and module
 - Use your developer tools to set break points (or use `debugger;` or `console.log()` in your code) to be able to step through and into functions, check variables at different times.
 - When possible, keep your code changes contained to the modules and views in which you are working. Changes to core T1 files and functions should be done with extreme prejudice and only when absolutely necessary. Dozens of files are potentially dependent on these files. Potentially breaking changes could be introduced that would be very difficult to identify and test. It may become necessary to do at some point, but especially when new to the codebase it is advised to check in with other developers if you find yourself in a T1 library file when implementing a fix.
 - Use a [delinter] (https://github.com/MediaMath/compass/blob/develop/docs/code-style-checking.md) and follow the [Compass Style Guide] (https://github.com/MediaMath/compass/wiki/Compass-JavaScript-Style-Guide). 
+- 
+
+### Other topics:  hogan/compiling templates, feature flags, permissions, DMP specifics (doesn't use T1View, grid web component, etc)

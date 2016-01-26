@@ -309,11 +309,11 @@ dataEvents: {
 
 ### Feature Flags
 Occasionally, product and/or engineering has a need to restrict access to various sections or features of T1. The feature may be in Beta, or there may be a need to treat users differently based on their permissions and access. There are two different types of permissions to be aware of:
-1. Permissions
+- Permissions
 `COMPASS_BASE/api/v2.0/users/{user_id}/permissions`
 This returns the permissions that are set on the user. These are high level permissions generally organized around the type of user (ADMIN, REPORTER, MANAGER)
 
-2. Settings
+- Settings
 `COMPASS_BASE/api/v2.0/users/{user_id}/settings`
 This is used to persist a User's preferences (housed in the `UserPreferences`) model, but it is also where feature flag data is stored.
 

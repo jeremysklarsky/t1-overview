@@ -417,6 +417,10 @@ Now that our routing is set, our libraries are loaded, our is created and module
 ### Tips and Tricks
 - To source a view responsible for a particular interaction, one of the easiest ways to is identify the element's CSS class or ID. Search globally for that class and you will return hits on either the HTML template file or some views itself. 
 - To find live instances / examples of T1 Component files, search by the aliased name of the library class as set in `main.js` (e.g. to find an example of T1.Menu, search for `T1Menu`.) For strand web components, searching by name should return some hits (e.g. 'mm-grid').
+- When first working with web components (particularly `<mm-grid>`), the variable rendering may seem confusing. Because `<mm-grid>` employs its internal templating, we must go through two layers of interpolation.
+  - In our template: `<mm-grid-item model="{{model}}" scope="{{scope}}" style="font-size: 11px; line-height:18px">`
+  - In our view's `serialize`: `model: '{{model}}'`
+  - At its most basic, this is to ensure that when `"{{model}}"` is interprated by the templating engine, it is replaced with what is in our `serialize` (or `render`) function: literally '{{model}}'. 
 - Use your developer tools to set break points (or use `debugger;` or `console.log()` in your code) to be able to step through and into functions, check variables at different times.
 - When possible, keep your code changes contained to the modules and views in which you are working. Changes to core T1 files and functions should be done with extreme prejudice and only when absolutely necessary. Dozens of files are potentially dependent on these files. Potentially breaking changes could be introduced that would be very difficult to identify and test. It may become necessary to do at some point, but especially when new to the codebase it is advised to check in with other developers if you find yourself in a T1 library file when implementing a fix.
 - Use a [delinter] (https://github.com/MediaMath/compass/blob/develop/docs/code-style-checking.md) and follow the [Compass Style Guide] (https://github.com/MediaMath/compass/wiki/Compass-JavaScript-Style-Guide). 

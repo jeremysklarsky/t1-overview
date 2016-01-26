@@ -247,6 +247,11 @@ serialize: function () {
     'message': DataExportModel.getEmailMessage()
   };
 }
+
+If you do _not_ include a `serialize` function on your view, T1View will send call `toJSON` on your view's model (assuming it has one) and send all those attributes as variables to your template. If you do write a `serialize` method, however, this will be overwritten and you would be responsible to include _all_ variables you want in your `serialize` method.
+
+If you are working in a non T1View (e.g. the entire segments module), you templating and rendering must take place manually. At present, segments uses [Hogan] (http://twitter.github.io/hogan.js/), a variation of Mustache for rendering templates.
+
 ```
 #### Templating
 By default, `T1View` uses [Mustache] (https://mustache.github.io/). You only need a few simple pieces to get started:
@@ -272,6 +277,8 @@ By default, `T1View` uses [Mustache] (https://mustache.github.io/). You only nee
   </mm-button>
 {{/create}}
 ```
+
+Interpolated data is sent to the template when `render` calls the `serialize` method. So if you want to access a variable in your template, include it in the `serialize` function on your view (if you've written one - see above discussion of `T1View` for more detail).
 
 ### Additional T1 Features
 
@@ -309,11 +316,11 @@ dataEvents: {
 
 ### Feature Flags
 Occasionally, product and/or engineering has a need to restrict access to various sections or features of T1. The feature may be in Beta, or there may be a need to treat users differently based on their permissions and access. There are two different types of permissions to be aware of:
-- Permissions
+- Permissions:
 `COMPASS_BASE/api/v2.0/users/{user_id}/permissions`
 This returns the permissions that are set on the user. These are high level permissions generally organized around the type of user (ADMIN, REPORTER, MANAGER)
 
-- Settings
+- Settings:
 `COMPASS_BASE/api/v2.0/users/{user_id}/settings`
 This is used to persist a User's preferences (housed in the `UserPreferences`) model, but it is also where feature flag data is stored.
 

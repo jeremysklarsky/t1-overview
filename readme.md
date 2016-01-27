@@ -302,7 +302,7 @@ Interpolated data is sent to the template when `render` as served to it from `se
 #### EventHub
 While a typical backbone event only has an `events: {}` object to listen to jQuery events on that particular view, T1 has a powerful feature to allow different views to communicate with each other. This is implemented using EventHub. It is used similarly to the jQuery `events` object in a Backbone view.
 
-The `EventHub` is, essentially, a wrapper for (jQuery pub/sub) [https://api.jquery.com/jQuery.Callbacks/]. It makes public three functions: `publish`, `subscribe`, and `unsubscribe`.
+The `EventHub` is, essentially, a wrapper for [jQuery pub/sub] (https://api.jquery.com/jQuery.Callbacks/). It makes public three functions: `publish`, `subscribe`, and `unsubscribe`.
 
 The basic game of catch works like this. In the sending view, we dispatch the event by calling `T1.EventHub.publish('eventName')`. In the receiving view, we set up the eventHub:
 

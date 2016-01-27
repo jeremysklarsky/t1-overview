@@ -266,7 +266,7 @@ serialize: function () {
   };
 }
 ```
-If you do _not_ include a `serialize` function on your view, T1View will send call `toJSON` on your view's model (assuming it has one) and send all those attributes as variables to your template. If you do write a `serialize` method, however, this will be overwritten and you would be responsible to include _all_ variables you want in your `serialize` method.
+If you do _not_ include a `serialize` function on your view, T1View will call `toJSON` on your view's model (assuming it has been assigned one) and send all those attributes as variables to your template. If you do write a `serialize` method, however, this will be overwritten and you would be responsible to include _all_ variables you want in your `serialize` method.
 
 If you are working in a non T1View (e.g. the entire segments module), you templating and rendering must take place manually. At present, segments uses [Hogan] (http://twitter.github.io/hogan.js/), a variation of Mustache for rendering templates.
 
@@ -295,7 +295,7 @@ By default, `T1View` uses [Mustache] (https://mustache.github.io/). You only nee
 {{/create}}
 ```
 
-Interpolated data is sent to the template when `render` calls the `serialize` method. So if you want to access a variable in your template, include it in the `serialize` function on your view (if you've written one - see above discussion of `T1View` for more detail).
+Interpolated data is sent to the template when `render` as served to it from `serialize`. So if you want to access a variable in your template, include it in the `serialize` function on your view (if you've written one - see above discussion of `T1View` for more detail).
 
 ### Additional T1 Features
 

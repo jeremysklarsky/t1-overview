@@ -126,6 +126,8 @@ define(['libs/jquery/jquery'], function ($) {
 });
 ```
 
+Additional Resources: [RequireJS] (http://requirejs.org/)
+
 #### templates
 These are the HTML templates used by the shared libraries. If a T1 library uses HTML, like T1Menu for example, its HTML will most likely be found in this folder.
 

@@ -374,9 +374,23 @@ This tells our application that `xlsx.js` is dependant on JSZip, and to manually
 
 #### Step 3: Creating a module
 Since we're creating a brand new section of the segments module, we'll create a new module. Were we adding a new view to an existing page, this would not be necessary. Within the `src/js/modules/segments`, we'll add the new folder `bulkCreate`. At minimum that folder will need 3 things:
+
 - A `views` folder containing the default view designated in the routing object property `viewType`: `bulkSegments.js`.
 - A `templates` folder which will contain our HTML templates.
-- A `main.js` file that will serve as the `T1Module` instance governing the module's configurations. Whenever we introduce a new module, it must have a `main.js` T1Module because that is what the T1 Framework will be looking for in order to navigate the folder and serve up the views to Backbone. Our module is very simple, containing, for now just the one view. So our module will look like this:
+- A `main.js` file that will serve as the `T1Module` instance governing the module's configurations. Whenever we introduce a new module, it must have a `main.js` T1Module because that is what the T1 Framework will be looking for in order to navigate the folder and serve up the views to Backbone. 
+
+The folder structure would appear like this.
+```
+./src/js/modules/segments
+└── bulkCreate
+   ├── main.js
+   ├── templates
+   │   └── bulkCreate.html
+   └── views
+       └── bulkCreate.js
+```
+
+Our module is very simple, containing, for now just the one view. So our module will look like this:
 
 ```javascript
 define([

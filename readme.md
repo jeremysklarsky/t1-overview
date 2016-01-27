@@ -164,7 +164,22 @@ This file returns a new instance of the T1Module class. In its options, we desig
 
 ### T1View and T1Layout
 #### What's the difference?
-T1View is a simple extension of Backbone's `View` object. A T1View can be used either as a standalone view, or it can be used as a wrapper to manage a lot of views contained within it. This is where T1Layout comes into play. T1Layout is essentially a view-loadng wrapper. 
+T1View is a simple extension of Backbone's `View` object. A T1View can be used either as a standalone view, or it can be used as a wrapper to manage a lot of views contained within it. This is where T1Layout comes into play. T1Layout is essentially a view-loadng wrapper. Because T1View is an extension of Backbone.View, setting up a T1View works in the same fashion, except that we have to require `T1View` in the define block. 
+
+```javascript
+/*globals define*/
+define([
+  'jQuery',
+  'Underscore',
+  'T1',
+  'T1View'
+], function ($, _, T1, T1View) {
+
+  return T1View.extend({
+  });
+
+});
+```
 
 In Segments, which uses vanilla Backbone, we would typically manually create a new instance of a view class and assign it to an element. Using T1Layout, we can simple create an instance of T1Layout and load.
 
